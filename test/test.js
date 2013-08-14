@@ -37,7 +37,7 @@ test("Path()", function () {
 	assert.equal(new Path('a//b//.'), 'a/b');
 });
 
-test('dirname()', function () {
+test("dirname()", function () {
 	assert.equal(new Path('a').dirname(), '.');
 	assert.equal(new Path('a/').dirname(), '.');
 	assert.equal(new Path('/a').dirname(), '/');
@@ -54,7 +54,14 @@ test('dirname()', function () {
 	assert.equal(new Path('../').dirname(), '.');
 });
 
-test('basename()', function () {
+test("dirname() returns a new object", function () {
+	var path = new Path('a/b');
+	path.dirname();
+
+	assert.equal(path, 'a/b');
+});
+
+test("basename()", function () {
 	assert.equal(new Path('a').basename(), 'a');
 	assert.equal(new Path('a/').basename(), 'a');
 	assert.equal(new Path('/a').basename(), 'a');
@@ -71,7 +78,7 @@ test('basename()', function () {
 	assert.equal(new Path('../').basename(), '..');
 });
 
-test('extname()', function () {
+test("extname()", function () {
 	assert.equal(new Path('').extname(), '');
 	assert.equal(new Path('/path/to/file').extname(), '');
 	assert.equal(new Path('/path/to/file.ext').extname(), '.ext');
@@ -115,7 +122,7 @@ test('extname()', function () {
 	assert.equal(new Path('file.//').extname(), '.');
 });
 
-test('extname(ext)', function () {
+test("extname(ext)", function () {
 	assert.equal(new Path('a').extname('.b'), 'a.b');
 	assert.equal(new Path('a/').extname('.b'), 'a.b/');
 	assert.equal(new Path('a.').extname('.b'), 'a.b');
@@ -148,7 +155,14 @@ test('extname(ext)', function () {
 	assert.equal(new Path('../').extname('.a'), '../');
 });
 
-test('join()', function () {
+test("extname(ext) returns a new object", function () {
+	var path = new Path('a');
+	path.extname('.b');
+
+	assert.equal(path, 'a');
+});
+
+test("join()", function () {
 	assert.equal(new Path('.').join('x/b', '..', '/b/c.js'), 'x/b/c.js');
 	assert.equal(new Path('/.').join('x/b', '..', '/b/c.js'), '/x/b/c.js');
 	assert.equal(new Path('/foo').join('../../../bar'), '/bar');
@@ -192,9 +206,30 @@ test('join()', function () {
 	assert.equal(new Path('').join('/', '/foo'), '/foo');
 });
 
-test('resolve()', function () {
+test("join() returns a new object", function () {
+	var path = new Path('a');
+	path.join('b');
+
+	assert.equal(path, 'a');
+});
+
+test("resolve()", function () {
 	assert.equal(new Path('/var/lib').resolve('../', 'file/'), '/var/file');
 	assert.equal(new Path('/var/lib').resolve('/../', 'file/'), '/file');
 	assert.equal(new Path('a/b/c/').resolve('../../..'), '.');
 	assert.equal(new Path('/some/dir').resolve('.', '/absolute/'), '/absolute');
+});
+
+test("resolve() returns a new object", function () {
+	var path = new Path('a');
+	path.resolve('b');
+
+	assert.equal(path, 'a');
+});
+
+test("toString() doesn't modify the original object", function () {
+	var path = new Path('a/..');
+	path.toString();
+
+	assert.equal(path.basename(), '..');
 });
