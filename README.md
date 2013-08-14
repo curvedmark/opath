@@ -37,6 +37,10 @@ These methods work like the ones in `require('path')`. Methods that are supposed
 
 Set extname to `ext`.
 
+### path.endsWithSlash()
+
+Return a boolean denoting if the path ends with a slash.
+
 ### path.toString()
 
 Return the string value of the path.

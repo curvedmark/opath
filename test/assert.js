@@ -1,5 +1,8 @@
-var assert = require('assert');
+var _assert = require('assert');
+var assert = Object.create(_assert);
 
-exports.equal = function (path, str) {
-	assert.equal(path.toString(), str);
+module.exports = assert;
+
+assert.equal = function (path, str) {
+	_assert.equal(path.toString(), str);
 };

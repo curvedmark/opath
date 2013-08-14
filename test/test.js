@@ -233,3 +233,8 @@ test("toString() doesn't modify the original object", function () {
 
 	assert.equal(path.basename(), '..');
 });
+
+test("endsWithSlash", function () {
+	assert.ok(new Path('a/').endsWithSlash());
+	assert.ok(!new Path('a').endsWithSlash());
+});
